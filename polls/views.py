@@ -1,4 +1,4 @@
-from django.http import HttpResponse, HttpRequest
+from django.http import HttpResponse, HttpRequest, Http404
 from django.shortcuts import render
 from django.template import loader
 
@@ -15,7 +15,11 @@ def index(request: HttpRequest):
 
 
 def detail(request: HttpRequest, question_id: int):
-    return HttpResponse(f"You are looking at question {question_id}.")
+    try:
+        question = Question.objects.get(pk=question_id)
+    except Question.DoesNotExist:
+        raise Http404("Question does not exist")
+    return render(request, 'polls/detail.html', {'question': question})
 
 
 def results(request: HttpRequest, question_id: int):
