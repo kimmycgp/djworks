@@ -15,14 +15,14 @@ class IndexView(generic.ListView):
         return Question.objects.order_by('-pub_date')[:5]
 
 
-def detail(request: HttpRequest, question_id: int):
-    question = get_object_or_404(Question, pk=question_id)
-    return render(request, 'polls/detail.html', {'question': question})
+class DetailView(generic.DetailView):
+    model = Question
+    template_name = 'polls/detail.html'
 
 
-def results(request: HttpRequest, question_id: int):
-    question = get_object_or_404(Question, pk=question_id)
-    return render(request, 'polls/results.html', {'question': question})
+class ResultView(generic.DetailView):
+    model = Question
+    template_name = 'polls/results.html'
 
 
 def vote(request: HttpRequest, question_id: int):
