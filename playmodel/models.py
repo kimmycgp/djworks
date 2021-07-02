@@ -12,3 +12,13 @@ class Album(models.Model):
     name = models.CharField(max_length=100)
     release_date = models.DateField()
     num_stars = models.IntegerField()
+
+
+class Person(models.Model):
+    SHIRT_SIZE = (
+        ('S', 'Small'),
+        ('M', 'Medium'),
+        ('L', 'Large'),
+    )
+    name = models.CharField(max_length=60)
+    shirt_size = models.CharField(max_length=1, choices=SHIRT_SIZE)
